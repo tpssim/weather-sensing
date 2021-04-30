@@ -6,7 +6,7 @@ First time only:
 ```bash
 npm install
 ```
-Starting the server in development mode
+Starting the server in development mode:
 ```bash
 npm run dev
 ```
