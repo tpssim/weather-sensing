@@ -13,13 +13,10 @@ module.exports = {
             throw 'Missing parameter data'
         }
 
-        const { temperature, pressure, humidity, ligthlevel } = data
+        const { temperature, humidity, ligthlevel } = data
 
         if (!temperature || typeof temperature !== 'number') {
             throw 'Invalid or missing parameter "temperature"'
-        }
-        else if (!pressure || typeof pressure !== 'number') {
-            throw 'Invalid or missing parameter "pressure"'
         }
         else if (!humidity || typeof humidity !== 'number') {
             throw 'Invalid or missing parameter "humidity"'

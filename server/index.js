@@ -13,7 +13,6 @@ let readings = [
         sensor: "fake_sensor",
         data: {
             temperature: 20.0,
-            pressure: 990.0,
             humidity: 25.0,
             ligthlevel: 100.0
         }
@@ -24,7 +23,6 @@ let readings = [
         sensor: "fake_sensor",
         data: {
             temperature: 21.0,
-            pressure: 991.0,
             humidity: 30.0,
             ligthlevel: 100.0
         }
