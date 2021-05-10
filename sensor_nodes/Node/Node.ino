@@ -21,7 +21,7 @@ typedef union {
 } floatConverter_t;
 
 // ID of this node. Must be different for each node! Cannot be 0.
-const uint8_t nodeId = 1;
+const uint8_t nodeId = 2;
 
 bool joined = false;
 

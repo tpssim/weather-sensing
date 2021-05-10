@@ -5,23 +5,30 @@
 #include <ESP8266WiFiMulti.h>
 #include <ESP8266HTTPClient.h>
 
+
 #define SDA_PIN D4
 #define SCL_PIN D3
-#define SSID ""                         // Wifi SSID
-#define PASSWD ""                       // Wifi passwd
-#define ADDR ""                         // Server IP
+#define I2CSlaveAddress 0x0A
 
-ESP8266WifiMulti wifiMulti;
 
-// I2C address of the XBee coordinator
-const uint8_t I2CSlaveAddress = 0x0A;
+#define SSID "****"                               // Wifi SSID
+#define PASSWD "****"                       // Wifi passwd
+#define ADDR "http://192.168.0.51:3001/api/readings"      // Server IP
+
+ESP8266WiFiMulti wifiMulti;
+
+
 
 void setup() {
   // put your setup code here, to run once:
   Wire.begin(SDA_PIN, SCL_PIN);
   Serial.begin(9600);
+  WiFi.mode(WIFI_STA);
 
   wifiMulti.addAP(SSID, PASSWD);
+
+  delay(2000);
+  Serial.println("Setup done...");
 }
 
 void loop() {
@@ -31,17 +38,27 @@ void loop() {
   // 1 - request the measurement data from all nodes (data size is 3 floats for every node - temperature, humidity, light)
 
   uint8_t cmd = 0;
-  uint8_t noOfNodes;
+  uint8_t noOfNodes = 0;
   
   // Get the number of devices
   Wire.beginTransmission(I2CSlaveAddress);
-  wireWriteData(cmd);
+  uint16_t written = wireWriteData(cmd);
   Wire.endTransmission(false);
+
+  Serial.print("Request bytes: ");
+  Serial.println(written);
   
   Wire.requestFrom(I2CSlaveAddress, sizeof noOfNodes);
   wireReadData(noOfNodes);
+  
+  Serial.print("Number of nodes (I2C): ");
+  Serial.println(noOfNodes);
 
-  Serial.print("Number of nodes: ");
+  if(noOfNodes == 255){
+    noOfNodes = 0;
+  }
+  
+  Serial.print("Number of nodes (interpret): ");
   Serial.println(noOfNodes);
   
   //Get the measurement data for each node
@@ -77,9 +94,9 @@ void loop() {
 
     if(wifiMulti.run() == WL_CONNECTED){
       // Create JSON document
-      StaticJosonDocument<128> doc;
+      StaticJsonDocument<128> doc;
       char output[128];
-
+      //String output;
       doc["sensor"] = "node_id";
 
       JsonObject data = doc.createNestedObject("data");
@@ -93,7 +110,7 @@ void loop() {
       // Send via http
       HTTPClient http;
 
-      http.begin(IP);
+      http.begin(ADDR);
       http.addHeader("Content-Type", "application/json");
 
       int httpCode = http.POST(output);
@@ -107,6 +124,10 @@ void loop() {
       }
 
       http.end();
+    }
+    else{
+      Serial.println("Could not connect to WiFi!!");
+      Serial.println(WiFi.status());
     }
   }
 

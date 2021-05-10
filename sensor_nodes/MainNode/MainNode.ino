@@ -7,8 +7,8 @@
 
 //Need I2C connection with LOLIN Wemos D1 mini ESP8266 board with WiFi
 //Using the Wire library for I2C
-//SDA to pin A5 on UNO
-//SCL to pin A4 on UNO
+//SDA to pin A4 on UNO
+//SCL to pin A5 on UNO
 #include <Wire.h>
 #include <WireData.h>
 #define I2C_ADDRESS 0x0A
