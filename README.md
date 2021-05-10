@@ -25,8 +25,8 @@ The server operates on port 3001 by default.
 First the XBee modules have to be configured for the network to operate correctly. For this project X-CTU was used for configuration, and the Arduino UNOs along with the XBee shields were used as a serial to USB converter. There are many online resources on how to configure XBee networks using these.
 
 The XBee network configuration needs to be as follows:
-  -The main node sends data to all of the sensor nodes.
-  -The sensor nodes send data only to the main node.
+  - The main node sends data to all of the sensor nodes.
+  - The sensor nodes send data only to the main node.
 
 ### Main node
 The main node is responsible for collecting all the data measured by the nodes in the sensor network. Within this project, it consist of an Arduino Uno with an
@@ -36,13 +36,13 @@ In addition to handling measurement data from sensor nodes, the main node in thi
 
 #### Building the main node:
 In the reference build the main node consists of:
-  -Arduino UNO
-  -XBee shield
-  -XBee radio module
-  -LOLIN Wemos D1 Mini (an ESP8266 based microcontroller with WiFi support)
-  -A Pololu logic level shifter for using I2C between the Arduino (5V) and the Wemos (3.3V).
-  -DHT22 temperature and humidity sensor
-  -An analog light sensor
+  - Arduino UNO
+  - XBee shield
+  - XBee radio module
+  - LOLIN Wemos D1 Mini (an ESP8266 based microcontroller with WiFi support)
+  - A Pololu logic level shifter for using I2C between the Arduino (5V) and the Wemos (3.3V).
+  - DHT22 temperature and humidity sensor
+  - An analog light sensor
   
 1. Connect the XBee radio module to the Arduino using the shield.
 2. Connect the Arduino I2C pins (SDA to A4 and SCL to A5 on UNO) to two different ports of the logic level shifter, to the high voltage side.
@@ -53,11 +53,11 @@ In the reference build the main node consists of:
 
 #### Building a sensor node
 In the reference build, a sensor node consists of:
-  -Arduino UNO
-  -XBee shield
-  -XBee radio module
-  -DHT22 temperature and humidity sensor
-  -An analog light sensor
+  - Arduino UNO
+  - XBee shield
+  - XBee radio module
+  - DHT22 temperature and humidity sensor
+  - An analog light sensor
   
 1. Connect the XBee radio module to the Arduino using the shield.
 2. Connect the light sensor analog output to A1 on the Arduino.
